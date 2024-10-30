@@ -6,32 +6,19 @@ public class Application {
         System.out.println("1. Шифорвание.\n2. Расшифровка с ключом.\n3. Выход.");
         Scanner userInput = new Scanner(System.in);
         System.out.println("Выберете один из вариантов:");
-        int userChoce = readInt(userInput);
+        Validate validate = new Validate();
+        int userChoce = Validate.readInt(userInput);
 
         if (userChoce == 1) {
-            System.out.println("1");
+            System.out.println("Введите ключ шифрования: ");
+            int keyInput = Validate.readInt(userInput);
+            FileReadCode.fileRead(keyInput);
         } else if (userChoce == 2) {
-            System.out.println("2");
-        } else if (userChoce == 3){
-            System.out.println("3");
-        } else if (userChoce == 0) {
+            System.out.println("Введите ключ шифрования: ");
+            int keyInput = Validate.readInt(userInput);
+            FileReadWriteUncode.fileRead(keyInput);
+        } else if (userChoce == 0 || userChoce == 3) {
             System.out.println("Программа завершена!");
         }
-
-    }
-
-    private static int readInt(Scanner s) {
-        int count = 3;
-        while (count > 0) {
-            String line = s.nextLine();
-            try {
-                return Integer.parseInt(line);
-            } catch (NumberFormatException e) {
-                System.err.println("Введите 1, 2 или 3");
-                System.out.println("Осталось " + count + " попыток");
-                count--;
-            }
-        }
-        return 0;
     }
 }
