@@ -47,10 +47,15 @@ public class Controller implements Initializable {
     @FXML
     private TextArea textBrutForce;
 
+    @FXML
+    private Button chekBfBtn;
+
     private int menuSelectChoice = 0;
     private int correctKey;
     private Path readFile;
     private Path writeFile;
+    private Path readFileBf;
+    private int chekKey = 1;
 
     @FXML
     void keyConfirm(MouseEvent event) {
@@ -136,6 +141,23 @@ public class Controller implements Initializable {
             keyEntryField.setVisible(false);
 
         }
+    }
+
+    @FXML
+    void brutForcePush(MouseEvent event) {
+        readFileBf = Path.of(OpenFileToRead.openFileRead());
+
+
+    }
+
+    @FXML
+    void checkString(MouseEvent event) {
+        StringBuilder itogString = new StringBuilder();
+        String proverka = BrutForce.brutForce(itogString, chekKey, readFileBf);
+        displayText.setText(proverka);
+        chekKey++;
+
+
     }
 
 
