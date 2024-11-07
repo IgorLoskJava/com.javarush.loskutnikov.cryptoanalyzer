@@ -58,8 +58,6 @@ public class Controller implements Initializable {
     @FXML
     private TextArea brutForceFieldNum;
 
-
-
     private int menuSelectChoice = 0;
     private int correctKey;
     private Path readFile;
@@ -180,7 +178,7 @@ public class Controller implements Initializable {
 
     @FXML
     void brutForceCorrectKeyPush(MouseEvent event) {
-        displayText.setText("File can be Encrypt whith Key " + (chekKey - 1) + " !");
+        displayText.setText("File can be Encrypt whith Key " + (chekKey - 1) + ".");
         confirmChoiceBtn.setVisible(true);
 
     }
