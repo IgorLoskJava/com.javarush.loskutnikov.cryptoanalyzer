@@ -3,6 +3,7 @@ package org.example.cryptoanalyzer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -50,6 +51,13 @@ public class Controller implements Initializable {
     @FXML
     private Button chekBfBtn;
 
+    @FXML
+    private Button brutForceCorrectKey;
+
+    @FXML
+    private TextArea brutForceFieldNum;
+
+
     private int menuSelectChoice = 0;
     private int correctKey;
     private Path readFile;
@@ -59,13 +67,13 @@ public class Controller implements Initializable {
 
     @FXML
     void keyConfirm(MouseEvent event) {
-        displayText.setText("Сначала введите ключ");
+        displayText.setText("First, enter the key");
         if (keyEntryField.getText() != "") {
             correctKey = KeyValidate.keyValidate(keyEntryField.getText());
             if (correctKey == 0) {
-                displayText.setText("Введен неверный ключ");
+                displayText.setText("Invalid key entered");
             } else {
-                displayText.setText("Ключ подходит");
+                displayText.setText("The key is correct");
                 openFileBtn.setText("Choose FILE to Encrypt");
             }
         }
@@ -85,7 +93,11 @@ public class Controller implements Initializable {
             menuSelectChoice = 2;
         } else if (menuChoice.equals("EXIT")) {
             System.exit(0);
-        } else if (menuChoice.equals("BRUT FORCE")) {
+        } else if (menuChoice.equals("BRUTE FORCE")) {
+            brutForceBtn.setVisible(true);
+            chekBfBtn.setVisible(true);
+            brutForceFieldNum.setVisible(true);
+            brutForceCorrectKey.setVisible(true);
 
         }
 
@@ -95,7 +107,7 @@ public class Controller implements Initializable {
     void openFileFead(MouseEvent event) {
         if (menuSelectChoice == 1 || menuSelectChoice == 2) {
             readFile = Path.of(OpenFileToRead.openFileRead());
-            displayText.setText("Выбран файл: " + String.valueOf(readFile));
+            displayText.setText("The file is selected: " + String.valueOf(readFile));
             writeFileBtn.setText("Choose File to WRITE");
             okLabel1.setText("Continue next step");
         }
@@ -106,12 +118,12 @@ public class Controller implements Initializable {
     void openFileWrite(MouseEvent event) {
         if (menuSelectChoice == 1) {
             writeFile = Path.of(OpenFileToWrite.openFileWrite());
-            displayText.setText("Выбран для записи: " + String.valueOf(writeFile));
+                displayText.setText("The file will be recorded: " + String.valueOf(writeFile));
             startBtn.setText("ENCRYPT");
             okLabel2.setText("Continue next step");
         } else if (menuSelectChoice == 2) {
             writeFile = Path.of(OpenFileToWrite.openFileWrite());
-            displayText.setText("Выбран для записи: " + String.valueOf(writeFile));
+            displayText.setText("The file will be recorded: " + String.valueOf(writeFile));
             startBtn.setText("DECRYPT");
         }
 
@@ -153,10 +165,15 @@ public class Controller implements Initializable {
     @FXML
     void checkString(MouseEvent event) {
         StringBuilder itogString = new StringBuilder();
+        brutForceFieldNum.setText(chekKey + "");
         String proverka = BrutForce.brutForce(itogString, chekKey, readFileBf);
         displayText.setText(proverka);
         chekKey++;
+    }
 
+    @FXML
+    void brutForceCorrectKeyPush(MouseEvent event) {
+        displayText.setText("File can be Encrypt whith Key " + (chekKey - 1));
 
     }
 
@@ -164,6 +181,10 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         keyEntryField.setVisible(false);
-        menuChoiceBox.getItems().addAll("Encrypt FILE", "Decrypt FILE", "BRUT FORCE", "EXIT");
+        brutForceBtn.setVisible(false);
+        chekBfBtn.setVisible(false);
+        brutForceFieldNum.setVisible(false);
+        brutForceCorrectKey.setVisible(false);
+        menuChoiceBox.getItems().addAll("Encrypt FILE", "Decrypt FILE", "BRUTE FORCE", "EXIT");
     }
 }
