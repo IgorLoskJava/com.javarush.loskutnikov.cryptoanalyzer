@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ResourceBundle;
@@ -58,6 +59,7 @@ public class Controller implements Initializable {
     private TextArea brutForceFieldNum;
 
 
+
     private int menuSelectChoice = 0;
     private int correctKey;
     private Path readFile;
@@ -74,7 +76,7 @@ public class Controller implements Initializable {
                 displayText.setText("Invalid key entered");
             } else {
                 displayText.setText("The key is correct");
-                openFileBtn.setText("Choose FILE to Encrypt");
+                openFileBtn.setText("1. Choose FILE to READ");
             }
         }
     }
@@ -94,10 +96,14 @@ public class Controller implements Initializable {
         } else if (menuChoice.equals("EXIT")) {
             System.exit(0);
         } else if (menuChoice.equals("BRUTE FORCE")) {
+            confirmChoiceBtn.setVisible(false);
+            keyEntryField.setVisible(false);
             brutForceBtn.setVisible(true);
             chekBfBtn.setVisible(true);
             brutForceFieldNum.setVisible(true);
             brutForceCorrectKey.setVisible(true);
+            okLabel1.setText("");
+            okLabel2.setText("");
 
         }
 
@@ -108,7 +114,7 @@ public class Controller implements Initializable {
         if (menuSelectChoice == 1 || menuSelectChoice == 2) {
             readFile = Path.of(OpenFileToRead.openFileRead());
             displayText.setText("The file is selected: " + String.valueOf(readFile));
-            writeFileBtn.setText("Choose File to WRITE");
+            writeFileBtn.setText("2. Choose File to WRITE");
             okLabel1.setText("Continue next step");
         }
 
@@ -119,12 +125,13 @@ public class Controller implements Initializable {
         if (menuSelectChoice == 1) {
             writeFile = Path.of(OpenFileToWrite.openFileWrite());
                 displayText.setText("The file will be recorded: " + String.valueOf(writeFile));
-            startBtn.setText("ENCRYPT");
+            startBtn.setText("3. ENCRYPT");
             okLabel2.setText("Continue next step");
         } else if (menuSelectChoice == 2) {
             writeFile = Path.of(OpenFileToWrite.openFileWrite());
             displayText.setText("The file will be recorded: " + String.valueOf(writeFile));
-            startBtn.setText("DECRYPT");
+            startBtn.setText("3. DECRYPT");
+            okLabel2.setText("Continue next step");
         }
 
     }
@@ -133,7 +140,7 @@ public class Controller implements Initializable {
     void startCrypting(MouseEvent event) {
         if (menuSelectChoice == 1) {
             EncryptFile.encryptFile(correctKey, readFile, writeFile);
-            displayText.setText("The file has been successfully \"Encrypted\"");
+            displayText.setText("The file has been successfully \"Encrypted\"\n\nIs there anything else you want to do?");
             confirmChoiceBtn.setVisible(true);
             keyEntryField.setText("");
             openFileBtn.setText("");
@@ -144,7 +151,7 @@ public class Controller implements Initializable {
         }
         if (menuSelectChoice == 2) {
             DecryptFile.decrypteFile(correctKey, readFile, writeFile);
-            displayText.setText("The file has been successfully \"Decrypted\"");
+            displayText.setText("The file has been successfully \"Decrypted.\"\n\nIs there anything else you want to do?");
             confirmChoiceBtn.setVisible(true);
             keyEntryField.setText("");
             openFileBtn.setText("");
@@ -173,7 +180,8 @@ public class Controller implements Initializable {
 
     @FXML
     void brutForceCorrectKeyPush(MouseEvent event) {
-        displayText.setText("File can be Encrypt whith Key " + (chekKey - 1));
+        displayText.setText("File can be Encrypt whith Key " + (chekKey - 1) + " !");
+        confirmChoiceBtn.setVisible(true);
 
     }
 
