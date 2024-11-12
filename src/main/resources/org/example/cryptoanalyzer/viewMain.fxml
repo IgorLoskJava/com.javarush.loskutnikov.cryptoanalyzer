@@ -15,7 +15,7 @@
    <children>
       <TabPane layoutX="6.0" layoutY="7.0" prefHeight="587.0" prefWidth="790.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Encryption / Decryption">
+          <Tab text="Encryption / Decryption / BRUTE FORCE">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
